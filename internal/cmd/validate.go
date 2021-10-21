@@ -69,18 +69,13 @@ func validateMain(cmd *cobra.Command, args []string) {
 
 	metaBundle := utils.NewMetaBundle(addonMetadata)
 
-	errs := validate.Validate(metaBundle)
-	if len(errs) > 0 {
-		utils.PrintValidationErrors(errs)
-	}
+	_ = validate.Validate(metaBundle)
+
 }
 
 func getAddonMetaObject(data []byte) (*addonsv1alpha1.AddonMetadataSpec, error) {
 	addonMetadata := &addonsv1alpha1.AddonMetadataSpec{}
-	if err := addonMetadata.FromYAML(data); err != nil {
-		return nil, err
-	}
-	return addonMetadata, nil
+	return addonMetadata, addonMetadata.FromYAML(data)
 }
 
 func readAddonMetadata(addonURI string) ([]byte, error) {

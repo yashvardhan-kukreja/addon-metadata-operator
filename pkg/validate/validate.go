@@ -12,12 +12,12 @@ func Validate(mb *utils.MetaBundle) []error {
 	errs := []error{}
 	validators := GetAllValidators()
 
-	printMetaHeading()
+	printHeading()
 
 	for _, validator := range validators {
 		fmt.Printf("\r%s\t\t", validator.Description)
 		success, err := validator.Runner(mb)
-		if err != nil {
+		if err != nil && !success {
 			errs = append(errs, err)
 			printErrorMessage(validator.Description)
 		} else if !success {
@@ -39,10 +39,6 @@ func GetAllValidators() []utils.Validator {
 		{
 			Description: "Ensure `label` to follow the format api.openshift.com/addon-<operator-name>",
 			Runner:      validators.ValidateAddonLabel,
-		},
-		{
-			Description: "Some description about some cross validator",
-			Runner:      validators.ValidateSomethingCrossBetweenImageSetAndMetadata, // cross validators can be separated into a different function as well like GetAllCrossValidators() []utils.Validator
 		},
 	}
 }

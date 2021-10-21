@@ -15,18 +15,18 @@ var (
 	err     = utils.IntenselyBoldRed("Error")
 )
 
-func printMetaHeading() {
-	fmt.Printf("\n%sRUNNING METADATA VALIDATORS%s\n\n", equalLines, equalLines)
+func printHeading() {
+	fmt.Printf("\n%sRUNNING VALIDATORS%s\n\n", equalLines, equalLines)
 }
 
 func printSuccessMessage(msg string) {
-	fmt.Printf("\r%s\t\t%s", msg, success)
+	fmt.Printf("\r%s ... %s", msg, success)
 }
 
 func printFailureMessage(msg string) {
-	fmt.Printf("\r%s\t\t%s", msg, failed)
+	fmt.Printf("\r%s ... %s", msg, failed)
 }
 
 func printErrorMessage(msg string) {
-	fmt.Printf("\r%s\t\t%s", msg, err)
+	fmt.Printf("\r%s ... %s", msg, err)
 }

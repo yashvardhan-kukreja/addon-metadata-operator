@@ -1,6 +1,8 @@
 package validators
 
 import (
+	"fmt"
+
 	"github.com/mt-sre/addon-metadata-operator/pkg/utils"
 )
 
@@ -11,5 +13,5 @@ func ValidateDefaultChannel(metabundle *utils.MetaBundle) (bool, error) {
 			return true, nil
 		}
 	}
-	return false, nil
+	return false, fmt.Errorf("failed to validate")
 }
