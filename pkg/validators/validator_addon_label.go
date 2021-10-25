@@ -10,7 +10,7 @@ import (
 func ValidateAddonLabel(metabundle *utils.MetaBundle) (bool, error) {
 	operatorName, label := metabundle.AddonMeta.OperatorName, metabundle.AddonMeta.Label
 	if label != "api.openshift.com/addon-"+operatorName {
-		return false, fmt.Errorf("failed to validate")
+		return false, nil
 	}
 
 	return true, nil
