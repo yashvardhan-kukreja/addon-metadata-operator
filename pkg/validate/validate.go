@@ -37,7 +37,7 @@ func GetAllValidators() []utils.Validator {
 			Runner:      validators.ValidateDefaultChannel,
 		},
 		{
-			Description: "Ensure `label` to follow the format api.openshift.com/addon-<operator-name>",
+			Description: "Ensure `label` to follow the format api.openshift.com/addon-<operator-id>",
 			Runner:      validators.ValidateAddonLabel,
 		},
 	}

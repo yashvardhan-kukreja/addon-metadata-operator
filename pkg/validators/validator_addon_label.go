@@ -6,7 +6,7 @@ import (
 	"github.com/mt-sre/addon-metadata-operator/pkg/utils"
 )
 
-// TODO: preferable, have return type as a (bool, error) instead
+// ValidateAddonLabel validates whether the 'label' field under an addon.yaml follows the format 'api.openshift.com/addon-<id>'
 func ValidateAddonLabel(metabundle *utils.MetaBundle) (bool, error) {
 	operatorName, label := metabundle.AddonMeta.OperatorName, metabundle.AddonMeta.Label
 	if label != "api.openshift.com/addon-"+operatorName {
@@ -14,8 +14,4 @@ func ValidateAddonLabel(metabundle *utils.MetaBundle) (bool, error) {
 	}
 
 	return true, nil
-}
-
-func someOtherUtilFunction() {
-
 }
