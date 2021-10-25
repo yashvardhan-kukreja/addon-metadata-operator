@@ -14,5 +14,5 @@ func ValidateDefaultChannel(metabundle *utils.MetaBundle) (bool, error) {
 			return true, nil
 		}
 	}
-	return false, fmt.Errorf("failed to validate")
+	return false, nil
 }
