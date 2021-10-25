@@ -1,8 +1,6 @@
 package validators
 
 import (
-	"fmt"
-
 	"github.com/mt-sre/addon-metadata-operator/pkg/utils"
 )
 
