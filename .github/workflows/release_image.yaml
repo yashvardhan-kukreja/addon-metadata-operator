@@ -21,10 +21,14 @@ jobs:
         username: ${{secrets.REDHAT_REGISTRY_USERNAME}}
         password: ${{secrets.REDHAT_REGISTRY_PASSWORD}}
 
+    - name: check stuff
+      run: |-
+        echo ${{github.sha}}
+
     - name: Build image
       run: |-
         docker build -t quay.io/ykukreja/test-mtcli-empty:latest -f Dockerfile.build .
-        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:$(git log -1 --pretty=%h)
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
 
     - name: Log into quay.io
       uses: docker/login-action@master
@@ -36,4 +40,4 @@ jobs:
     - name: Push into quay.io
       run:  |-
         docker push quay.io/ykukreja/test-mtcli-empty:latest
-        docker tag quay.io/ykukreja/test-mtcli-empty:$(git log -1 --pretty=%h)
+        docker tag quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
