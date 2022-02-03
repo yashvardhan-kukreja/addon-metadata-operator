@@ -33,7 +33,7 @@ jobs:
     - name: Build image
       run: |-
         docker build -t quay.io/ykukreja/test-mtcli-empty:latest -f Dockerfile.build .
-        docker tag quay.io/ykukreja/test-mtcli-empty:$(git log -1 --pretty=%h)
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:$(git log -1 --pretty=%h)
 
     - name: Log into quay.io
       uses: docker/login-action@master
