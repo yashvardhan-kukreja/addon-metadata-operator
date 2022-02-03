@@ -33,7 +33,7 @@ jobs:
       run: docker image ls
 
     - name: Build image 2
-      runs: docker build -t quay.io/ykukreja/test-mtcli-empty:latest -f Dockerfile.build .
+      run: docker build -t quay.io/ykukreja/test-mtcli-empty:latest -f Dockerfile.build .
 
     - name: List image 2
       run: docker image ls
