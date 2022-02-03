@@ -29,6 +29,15 @@ jobs:
         push: false
         tags: quay.io/ykukreja/test-mtcli-empty:latest
 
+    - name: List image
+      run: docker image ls
+
+    - name: Build image 2
+      runs: docker build -t quay.io/ykukreja/test-mtcli-empty:latest -f Dockerfile.build .
+
+    - name: List image 2
+      run: docker image ls
+
     - name: Log into quay.io
       uses: docker/login-action@master
       with:
@@ -37,4 +46,4 @@ jobs:
         password: ${{secrets.QUAY_REGISTRY_PASSWORD}}
 
     - name: Push into quay.io
-      run: docker push quay.io/ykukreja/test-mtcli-empty:latest
+      run:  docker image ls && docker push quay.io/ykukreja/test-mtcli-empty:latest
