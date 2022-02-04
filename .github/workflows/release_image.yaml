@@ -40,4 +40,4 @@ jobs:
     - name: Push into quay.io
       run:  |-
         docker push quay.io/ykukreja/test-mtcli-empty:latest
-        docker tag quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
+        docker push quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
