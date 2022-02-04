@@ -49,8 +49,10 @@ jobs:
         docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
         docker push quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
 
-    # - name: Push the latest stable image upon release
-    #   if: ${{github.ref_type == "tag"}}
-    #   run: |-
-    #     docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:stable-latest
-    #     docker push quay.io/ykukreja/test-mtcli-empty:stable-latest
+    - name: Push the latest release image upon release
+      if: ${{github.ref_type == 'tag'}}
+      run: |-
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:stable-latest
+        docker push quay.io/ykukreja/test-mtcli-empty:stable-latest
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:${{github.ref_name}}
+        docker push quay.io/ykukreja/test-mtcli-empty:${{github.ref_name}}
