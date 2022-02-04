@@ -2,7 +2,8 @@
 on:
   push:
     branches:
-      - yashvardhan/support-ci-to-push-images
+      - master
+      - main
 
 jobs:
   release-image:
@@ -20,10 +21,6 @@ jobs:
         registry: registry.redhat.io
         username: ${{secrets.REDHAT_REGISTRY_USERNAME}}
         password: ${{secrets.REDHAT_REGISTRY_PASSWORD}}
-
-    - name: check stuff
-      run: |-
-        echo ${{github.sha}}
 
     - name: Build image
       run: |-
