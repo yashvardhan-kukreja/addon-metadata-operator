@@ -1,0 +1,57 @@
+---
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  publish-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Ref scenes
+      run: |-
+        echo ${{github.ref_type}}
+        echo ${{github.ref_name}}
+        echo ${{github.ref}}
+
+    - name: Log into registry.redhat.io
+      uses: docker/login-action@master
+      with:
+        registry: registry.redhat.io
+        username: ${{secrets.REDHAT_REGISTRY_USERNAME}}
+        password: ${{secrets.REDHAT_REGISTRY_PASSWORD}}
+
+    - name: Build image
+      run: |-
+        docker build -t quay.io/ykukreja/test-mtcli-empty:latest -f Dockerfile.build .
+
+    - name: Log into quay.io
+      uses: docker/login-action@master
+      with:
+        registry: quay.io
+        username: ${{secrets.QUAY_REGISTRY_USERNAME}}
+        password: ${{secrets.QUAY_REGISTRY_PASSWORD}}
+
+    - name: Push the latest image to quay.io
+      run:  |-
+        docker push quay.io/ykukreja/test-mtcli-empty:latest
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
+        docker push quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
+
+    - name: Push the commit-tagged image to quay.io
+      run:  |-
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
+        docker push quay.io/ykukreja/test-mtcli-empty:${{github.sha}}
+
+    - name: Push the latest stable image upon release
+      if: github.ref_type == "tag"
+      run: |-
+        docker tag quay.io/ykukreja/test-mtcli-empty:latest quay.io/ykukreja/test-mtcli-empty:stable-latest
+        docker push quay.io/ykukreja/test-mtcli-empty:stable-latest
