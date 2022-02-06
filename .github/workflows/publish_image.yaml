@@ -7,7 +7,7 @@ on:
       - "v*"
   release:
     types:
-    - published
+    - released
 
 
 jobs:
